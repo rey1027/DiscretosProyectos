@@ -1,0 +1,35 @@
+* C:\Users\Rachel\Desktop\Proyecto Discretos\CMOSopamp-top.asc
+V1 vdda N001 1.65
+V2 N001 vssa 1.65
+R1 gnda 0 0.1
+C2 out gnda 10p
+XX2 0 0 vdda vssa out cmosopamp
+
+* block symbol definitions
+.subckt cmosopamp inp inn vdda vssa out
+Ibias vdda N004 45µ
+M1 NC_01 N001 vdda vdda PMOS1
+M2 N002 N001 vdda vdda PMOS2
+M7 out N002 vdda vdda PMOS7
+M3 N001 inn N003 vssa NMOS3
+M4 N002 inp N003 vssa NMOS4
+M5 N004 N004 vssa vssa NMOS5
+M6 N003 N004 vssa vssa NMOS6
+M8 out N004 vssa vssa NMOS8
+.ends cmosopamp
+
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\Users\Rachel\Documents\LTspiceXVII\lib\cmp\standard.mos
+.MODEL PMOS1 PMOS (Kp=58u Vto=-0.5 W=2.2u L=2u lambda=0.04)
+.MODEL PMOS2 PMOS (Kp=58u Vto=-0.5 W=2.2u L=2u lambda=0.04)
+.MODEL NMOS3 NMOS (Kp=170u Vto=0.5 W=6u L=2u lambda=0.002)
+.MODEL NMOS4 NMOS (Kp=170u Vto=0.5 W=6u L=2u lambda=0.002)
+.MODEL NMOS5 NMOS (Kp=170u Vto=0.5 W=3.2u L=1u lambda=0.015)
+.MODEL NMOS6 NMOS (Kp=170u Vto=0.5 W=3.2u L=1u lambda=0.015)
+.MODEL PMOS7 PMOS (Kp=58u Vto=-0.5 W=100u L=1u lambda=0.005)
+.MODEL NMOS8 NMOS (Kp=170u Vto=0.5 W={W8} L=1u lambda=0.015)
+.op
+.step param W8 2u 12u 0.1u
+.backanno
+.end
